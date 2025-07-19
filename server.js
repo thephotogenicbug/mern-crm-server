@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { connectDB } from "./config/mongodb.js";
 import userRouter from "./routes/user.routes.js";
+import customerRouter from "./routes/customer.routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,6 +30,7 @@ app.get("/health-check", (req, res) => {
 });
 
 app.use("/api/auth", userRouter);
+app.use("/api/customer", customerRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT} in ${ENV} mode.`);
