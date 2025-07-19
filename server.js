@@ -3,6 +3,7 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { connectDB } from "./config/mongodb.js";
+import userRouter from "./routes/user.routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,14 @@ app.use(
   })
 );
 connectDB();
+
+app.get("/health-check", (req, res) => {
+  res.send({
+    message: "server is healthy",
+  });
+});
+
+app.use("/api/auth", userRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT} in ${ENV} mode.`);
